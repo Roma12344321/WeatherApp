@@ -7,12 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.dev.weatherapp.databinding.FragmentDaylistBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 class DayListFragment : Fragment() {
 
     private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this)[MainViewModel::class.java]
     }
+
+    private val scope = CoroutineScope(Dispatchers.Default)
 
     private lateinit var city: String
 
@@ -38,7 +44,9 @@ class DayListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.loadTemperature(city)
+        scope.launch {
+            viewModel.loadTemperature(city)
+        }
         dayListAdapter = DayListAdapter()
         binding.rvDayList.adapter = dayListAdapter
         viewModel.dayTemperature.observe(viewLifecycleOwner) {
@@ -49,6 +57,7 @@ class DayListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        scope.cancel()
     }
 
     private fun parseArgs() {
@@ -56,6 +65,7 @@ class DayListFragment : Fragment() {
             city = it
         }
     }
+
 
     companion object {
 
