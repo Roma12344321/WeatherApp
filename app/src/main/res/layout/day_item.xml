@@ -57,11 +57,14 @@
             android:id="@+id/textViewCondition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="148dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="16dp"
+            android:maxEms="8"
             android:textColor="@android:color/holo_blue_dark"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewDate"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="asfffffff" />
 
@@ -69,7 +72,7 @@
             android:id="@+id/imageViewConditions"
             android:layout_width="87dp"
             android:layout_height="77dp"
-            android:layout_marginEnd="22dp"
+            android:layout_marginEnd="28dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewCondition"
             tools:srcCompat="@tools:sample/avatars" />
