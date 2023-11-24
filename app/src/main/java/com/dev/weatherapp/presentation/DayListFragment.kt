@@ -18,7 +18,6 @@ class DayListFragment : Fragment() {
         ViewModelProvider(this)[MainViewModel::class.java]
     }
 
-    private val scope = CoroutineScope(Dispatchers.Default)
 
     private lateinit var city: String
 
@@ -44,9 +43,7 @@ class DayListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        scope.launch {
-            viewModel.loadTemperature(city)
-        }
+        viewModel.loadTemperature(city)
         dayListAdapter = DayListAdapter()
         binding.rvDayList.adapter = dayListAdapter
         viewModel.dayTemperature.observe(viewLifecycleOwner) {
@@ -57,7 +54,6 @@ class DayListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        scope.cancel()
     }
 
     private fun parseArgs() {
