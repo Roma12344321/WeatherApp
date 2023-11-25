@@ -6,10 +6,13 @@ import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
 import com.dev.weatherapp.R
 import com.dev.weatherapp.domain.Day
+import java.text.SimpleDateFormat
+import java.util.Date
+
 
 class DayListAdapter : ListAdapter<Day, DayViewHolder>(DayItemDiffCallBack()) {
 
-    var onItemClickListener : OnItemClickListener? = null
+    var onItemClickListener: OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DayViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.day_item, parent, false)
@@ -18,7 +21,9 @@ class DayListAdapter : ListAdapter<Day, DayViewHolder>(DayItemDiffCallBack()) {
 
     override fun onBindViewHolder(viewHolder: DayViewHolder, position: Int) {
         val day: Day = getItem(position)
-        viewHolder.textViewDate.text = day.data
+        val inputData = day.data
+        val outputDateStr = parseDate(inputData)
+        viewHolder.textViewDate.text = outputDateStr
         viewHolder.textViewDegree.text = day.averageTemperature.toString()
         Glide.with(viewHolder.itemView)
             .load("https:" + day.iconOfCondition)
@@ -27,6 +32,21 @@ class DayListAdapter : ListAdapter<Day, DayViewHolder>(DayItemDiffCallBack()) {
         viewHolder.view.setOnClickListener {
             onItemClickListener?.onItemClick(day)
         }
+    }
+
+    private fun parseDate(inputData: String?): String? {
+        val outputPattern = "dd-MM-yyyy"
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd")
+        val outputFormat = SimpleDateFormat(outputPattern)
+        val date: Date
+        var outputDateStr: String? = null
+        try {
+            date = inputFormat.parse(inputData)
+            outputDateStr = outputFormat.format(date)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return outputDateStr
     }
 
     interface OnItemClickListener {

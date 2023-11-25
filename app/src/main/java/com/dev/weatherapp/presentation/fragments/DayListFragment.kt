@@ -7,10 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.dev.weatherapp.R
 import com.dev.weatherapp.databinding.FragmentDaylistBinding
 import com.dev.weatherapp.domain.Day
-import com.dev.weatherapp.presentation.viewModel.MainViewModel
 import com.dev.weatherapp.presentation.adapter.DayListAdapter
+import com.dev.weatherapp.presentation.viewModel.MainViewModel
 
 class DayListFragment : Fragment() {
 
@@ -58,12 +59,16 @@ class DayListFragment : Fragment() {
     private fun setUpClickListener() {
         dayListAdapter.onItemClickListener = object : DayListAdapter.OnItemClickListener {
             override fun onItemClick(day: Day) {
-                viewModel.loadTemperatureForDay(day)
-                viewModel.hourTemperature.observe(viewLifecycleOwner) {
-                    Log.d("DayListFragment",it.toString())
-                }
+                launchHourListFragment(day)
             }
         }
+    }
+
+    private fun launchHourListFragment(day: Day) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.main_container, HourListFragment.newInstance(day))
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onDestroyView() {
