@@ -18,7 +18,6 @@ class DayListFragment : Fragment() {
         ViewModelProvider(this)[MainViewModel::class.java]
     }
 
-
     private lateinit var city: String
 
     private var _binding: FragmentDaylistBinding? = null
@@ -59,7 +58,10 @@ class DayListFragment : Fragment() {
     private fun setUpClickListener() {
         dayListAdapter.onItemClickListener = object : DayListAdapter.OnItemClickListener {
             override fun onItemClick(day: Day) {
-                Log.d("DayListFragment",day.toString())
+                viewModel.loadTemperatureForDay(day)
+                viewModel.hourTemperature.observe(viewLifecycleOwner) {
+                    Log.d("DayListFragment",it.toString())
+                }
             }
         }
     }
