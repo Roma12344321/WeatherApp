@@ -6,5 +6,7 @@ data class DayResponse(
     @SerializedName("date")
     val date : String?,
     @SerializedName("day")
-    val day : Day?
+    val day : Day?,
+    @SerializedName("hour")
+    val listOfHours : List<HourResponse>?
 )

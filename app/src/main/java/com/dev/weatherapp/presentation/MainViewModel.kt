@@ -26,9 +26,7 @@ class MainViewModel : ViewModel() {
 
     fun loadTemperature(city: String) {
         scope.launch {
-            try {
-                _dayTemperature.value = loadTemperatureForDayUseCase.loadTemperature(city)
-            } catch (e:Exception){}
+            _dayTemperature.value = loadTemperatureForDayUseCase.loadTemperature(city)
         }
     }
 
