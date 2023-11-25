@@ -1,4 +1,4 @@
-package com.dev.weatherapp.presentation
+package com.dev.weatherapp.presentation.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -8,10 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.dev.weatherapp.databinding.FragmentDaylistBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
+import com.dev.weatherapp.domain.Day
+import com.dev.weatherapp.presentation.viewModel.MainViewModel
+import com.dev.weatherapp.presentation.adapter.DayListAdapter
 
 class DayListFragment : Fragment() {
 
@@ -45,11 +44,23 @@ class DayListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.loadTemperature(city)
+        setUpRecyclerView()
+    }
+
+    private fun setUpRecyclerView() {
         dayListAdapter = DayListAdapter()
         binding.rvDayList.adapter = dayListAdapter
         viewModel.dayTemperature.observe(viewLifecycleOwner) {
-            Log.d("DayListFragment",it.toString())
             dayListAdapter.submitList(it)
+        }
+        setUpClickListener()
+    }
+
+    private fun setUpClickListener() {
+        dayListAdapter.onItemClickListener = object : DayListAdapter.OnItemClickListener {
+            override fun onItemClick(day: Day) {
+                Log.d("DayListFragment",day.toString())
+            }
         }
     }
 

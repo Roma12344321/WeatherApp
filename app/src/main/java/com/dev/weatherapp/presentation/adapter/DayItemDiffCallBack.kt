@@ -1,4 +1,4 @@
-package com.dev.weatherapp.presentation
+package com.dev.weatherapp.presentation.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.dev.weatherapp.domain.Day

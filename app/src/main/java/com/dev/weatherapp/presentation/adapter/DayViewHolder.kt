@@ -1,4 +1,4 @@
-package com.dev.weatherapp.presentation
+package com.dev.weatherapp.presentation.adapter
 
 import android.view.View
 import android.widget.ImageView

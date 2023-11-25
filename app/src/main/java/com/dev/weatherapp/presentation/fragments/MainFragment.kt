@@ -1,4 +1,4 @@
-package com.dev.weatherapp.presentation
+package com.dev.weatherapp.presentation.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
