@@ -1,7 +1,6 @@
 package com.dev.weatherapp.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.dev.weatherapp.R
 import com.dev.weatherapp.databinding.FragmentDaylistBinding
 import com.dev.weatherapp.domain.Day
-import com.dev.weatherapp.presentation.adapter.DayListAdapter
+import com.dev.weatherapp.presentation.adapters.DayListAdapter
 import com.dev.weatherapp.presentation.viewModel.MainViewModel
 
 class DayListFragment : Fragment() {

@@ -1,4 +1,4 @@
-package com.dev.weatherapp.presentation.adapter
+package com.dev.weatherapp.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -21,9 +21,7 @@ class DayListAdapter : ListAdapter<Day, DayViewHolder>(DayItemDiffCallBack()) {
 
     override fun onBindViewHolder(viewHolder: DayViewHolder, position: Int) {
         val day: Day = getItem(position)
-        val inputData = day.data
-        val outputDateStr = parseDate(inputData)
-        viewHolder.textViewDate.text = outputDateStr
+        viewHolder.textViewDate.text = parseDate(day.data)
         viewHolder.textViewDegree.text = day.averageTemperature.toString()
         Glide.with(viewHolder.itemView)
             .load("https:" + day.iconOfCondition)
@@ -37,7 +35,7 @@ class DayListAdapter : ListAdapter<Day, DayViewHolder>(DayItemDiffCallBack()) {
     private fun parseDate(inputData: String?): String? {
         val outputPattern = "dd-MM-yyyy"
         val inputFormat = SimpleDateFormat("yyyy-MM-dd")
-        val outputFormat = SimpleDateFormat(outputPattern)
+        val outputFormat = SimpleDateFormat(outputPattern!!)
         val date: Date
         var outputDateStr: String? = null
         try {

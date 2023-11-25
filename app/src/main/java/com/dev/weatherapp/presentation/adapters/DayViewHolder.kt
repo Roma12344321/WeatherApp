@@ -1,11 +1,10 @@
-package com.dev.weatherapp.presentation.adapter
+package com.dev.weatherapp.presentation.adapters
 
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dev.weatherapp.R
-import org.w3c.dom.Text
 
 class DayViewHolder(val view : View) : RecyclerView.ViewHolder(view) {
     val textViewDate = view.findViewById<TextView>(R.id.textViewDate)
