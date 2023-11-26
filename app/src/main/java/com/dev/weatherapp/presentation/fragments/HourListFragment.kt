@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.dev.weatherapp.databinding.FragmentHourlistBinding
 import com.dev.weatherapp.domain.Day
+import com.dev.weatherapp.presentation.adapters.HourListAdapter
 import com.dev.weatherapp.presentation.viewModel.MainViewModel
 import java.lang.RuntimeException
 
@@ -23,6 +24,10 @@ class HourListFragment : Fragment() {
 
     private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this)[MainViewModel::class.java]
+    }
+
+    private val adapter : HourListAdapter by lazy {
+        HourListAdapter()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,8 +53,9 @@ class HourListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.loadTemperatureForDay(day)
+        binding.recyclerViewHourList.adapter = adapter
         viewModel.hourTemperature.observe(viewLifecycleOwner) {
-            Log.d("HourListFragment", it.toString())
+            adapter.submitList(it)
         }
     }
 
