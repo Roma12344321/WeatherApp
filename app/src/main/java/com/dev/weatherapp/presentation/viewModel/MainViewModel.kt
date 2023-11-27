@@ -3,7 +3,6 @@ package com.dev.weatherapp.presentation.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dev.weatherapp.data.DayListRepositoryImpl
 import com.dev.weatherapp.domain.Day
 import com.dev.weatherapp.domain.Hour
 import com.dev.weatherapp.domain.LoadHourForDayUseCase
@@ -32,8 +31,11 @@ class MainViewModel @Inject constructor(
         get() = _hourTemperature
 
     fun loadTemperature(city: String) {
+
         scope.launch {
-            _dayTemperature.value = loadTemperatureForDayUseCase.loadTemperature(city)
+            try {
+                _dayTemperature.value = loadTemperatureForDayUseCase.loadTemperature(city)
+            } catch (_: Exception){}
         }
     }
 
