@@ -1,5 +1,6 @@
 package com.dev.weatherapp.presentation.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,11 +10,25 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.dev.weatherapp.databinding.FragmentHourlistBinding
 import com.dev.weatherapp.domain.Day
+import com.dev.weatherapp.presentation.ViewModelFactory
+import com.dev.weatherapp.presentation.WeatherApp
 import com.dev.weatherapp.presentation.adapters.HourListAdapter
 import com.dev.weatherapp.presentation.viewModel.MainViewModel
 import java.lang.RuntimeException
+import javax.inject.Inject
 
 class HourListFragment : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
+    }
+
+    private val component by lazy {
+        (requireActivity().application as WeatherApp).component
+    }
 
     private var _binding: FragmentHourlistBinding? = null
 
@@ -22,12 +37,13 @@ class HourListFragment : Fragment() {
 
     private lateinit var day: Day
 
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this)[MainViewModel::class.java]
-    }
-
     private val adapter : HourListAdapter by lazy {
         HourListAdapter()
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

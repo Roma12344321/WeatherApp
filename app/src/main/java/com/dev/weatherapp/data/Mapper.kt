@@ -2,8 +2,9 @@ package com.dev.weatherapp.data
 
 import com.dev.weatherapp.domain.Day
 import com.dev.weatherapp.domain.Hour
+import javax.inject.Inject
 
-class Mapper {
+class Mapper @Inject constructor() {
 
     private fun mapDayResponseToDay(dayResponse: DayResponse): Day {
         return Day(

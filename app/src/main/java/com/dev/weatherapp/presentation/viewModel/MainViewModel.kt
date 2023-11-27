@@ -13,12 +13,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import javax.inject.Inject
 
-class MainViewModel : ViewModel() {
+class MainViewModel @Inject constructor(
+    private val loadTemperatureForDayUseCase: LoadTemperatureForDayUseCase,
+    private val loadHourForDayUseCase: LoadHourForDayUseCase
 
-    private val repository = DayListRepositoryImpl
-    private val loadTemperatureForDayUseCase = LoadTemperatureForDayUseCase(repository)
-    private val loadHourForDayUseCase = LoadHourForDayUseCase(repository)
+) : ViewModel() {
 
     private val scope = CoroutineScope(Dispatchers.Main)
 
@@ -35,6 +36,7 @@ class MainViewModel : ViewModel() {
             _dayTemperature.value = loadTemperatureForDayUseCase.loadTemperature(city)
         }
     }
+
     fun loadTemperatureForDay(day: Day) {
         _hourTemperature.value = loadHourForDayUseCase.loadHoursForDay(day)
     }
