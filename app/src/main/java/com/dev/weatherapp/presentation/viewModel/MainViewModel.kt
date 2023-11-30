@@ -30,12 +30,20 @@ class MainViewModel @Inject constructor(
     val hourTemperature: LiveData<List<Hour>>
         get() = _hourTemperature
 
+    private val _isLoaded = MutableLiveData<Boolean>()
+    val isLoaded : LiveData<Boolean>
+        get() = _isLoaded
+
     fun loadTemperature(city: String) {
+        _isLoaded.value = false
 
         scope.launch {
             try {
                 _dayTemperature.value = loadTemperatureForDayUseCase.loadTemperature(city)
-            } catch (_: Exception){}
+                _isLoaded.value = true
+            } catch (_: Exception){
+                _isLoaded.value = false
+            }
         }
     }
 

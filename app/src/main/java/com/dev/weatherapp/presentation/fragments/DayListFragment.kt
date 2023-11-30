@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.dev.weatherapp.R
 import com.dev.weatherapp.databinding.FragmentDaylistBinding
 import com.dev.weatherapp.domain.Day
-import com.dev.weatherapp.presentation.ViewModelFactory
-import com.dev.weatherapp.presentation.WeatherApp
+import com.dev.weatherapp.presentation.viewModel.ViewModelFactory
+import com.dev.weatherapp.presentation.viewModel.WeatherApp
 import com.dev.weatherapp.presentation.adapters.DayListAdapter
 import com.dev.weatherapp.presentation.viewModel.MainViewModel
 import javax.inject.Inject
@@ -60,6 +60,14 @@ class DayListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.loadTemperature(city)
         setUpRecyclerView()
+        viewModel.isLoaded.observe(viewLifecycleOwner){
+            if (it){
+                binding.progressBar.visibility = View.GONE
+            }
+            else {
+                binding.progressBar.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun setUpRecyclerView() {

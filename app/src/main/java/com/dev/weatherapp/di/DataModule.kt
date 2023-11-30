@@ -7,9 +7,11 @@ import com.dev.weatherapp.domain.DayListRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
 interface DataModule {
+    @Singleton
     @Binds
     fun bindDayListRepository(impl: DayListRepositoryImpl): DayListRepository
 

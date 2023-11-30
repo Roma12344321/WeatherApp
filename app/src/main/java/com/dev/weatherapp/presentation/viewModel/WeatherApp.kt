@@ -1,4 +1,4 @@
-package com.dev.weatherapp.presentation
+package com.dev.weatherapp.presentation.viewModel
 
 import android.app.Application
 import com.dev.weatherapp.di.DaggerApplicationComponent
