@@ -1,5 +1,6 @@
 package com.dev.weatherapp.data
 
+import com.dev.weatherapp.domain.Current
 import com.dev.weatherapp.domain.Day
 import com.dev.weatherapp.domain.Hour
 import javax.inject.Inject
@@ -31,5 +32,14 @@ class Mapper @Inject constructor() {
         return weatherResponse.listOfDayResponse?.listOfDayResponse?.map {
             mapDayResponseToDay(it)
         }
+    }
+
+    fun mapWeatherResponseToCurrent(weatherResponse: WeatherResponse): Current {
+        return Current(
+            time = weatherResponse.current?.time,
+            temp = weatherResponse.current?.temp,
+            textCondition = weatherResponse.current?.conditionOfCurrentDay?.text,
+            iconCondition = weatherResponse.current?.conditionOfCurrentDay?.icon
+        )
     }
 }

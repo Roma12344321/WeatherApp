@@ -10,5 +10,5 @@ class DayViewHolder(val view : View) : RecyclerView.ViewHolder(view) {
     val textViewDate = view.findViewById<TextView>(R.id.textViewDate)
     val textViewDegree = view.findViewById<TextView>(R.id.textViewDegree)
     val textViewCondition = view.findViewById<TextView>(R.id.textViewCondition)
-    val imageViewCondition = view.findViewById<ImageView>(R.id.imageViewConditions)
+    val imageViewCondition = view.findViewById<ImageView>(R.id.imageViewCondition)
 }

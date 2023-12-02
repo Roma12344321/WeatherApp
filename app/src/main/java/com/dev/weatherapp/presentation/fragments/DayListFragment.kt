@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.dev.weatherapp.R
 import com.dev.weatherapp.databinding.FragmentDaylistBinding
 import com.dev.weatherapp.domain.Day
-import com.dev.weatherapp.presentation.viewModel.ViewModelFactory
-import com.dev.weatherapp.presentation.viewModel.WeatherApp
 import com.dev.weatherapp.presentation.adapters.DayListAdapter
 import com.dev.weatherapp.presentation.viewModel.MainViewModel
+import com.dev.weatherapp.presentation.viewModel.ViewModelFactory
+import com.dev.weatherapp.presentation.viewModel.WeatherApp
 import javax.inject.Inject
 
 class DayListFragment : Fragment() {
@@ -59,15 +60,27 @@ class DayListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.loadTemperature(city)
+        viewModel.loadCurrentWeather(city)
+        viewModel.currentWeather.observe(viewLifecycleOwner) {
+            binding.textViewDegree.text = it.temp.toString()
+            binding.textViewTime.text = parseTime(it.time.toString())
+            binding.textViewCurrentCondition.text = it.textCondition
+            Glide.with(this)
+                .load("https:" + it.iconCondition)
+                .into(binding.imageViewCurrentCondition)
+        }
         setUpRecyclerView()
-        viewModel.isLoaded.observe(viewLifecycleOwner){
-            if (it){
+        viewModel.isLoaded.observe(viewLifecycleOwner) {
+            if (it) {
                 binding.progressBar.visibility = View.GONE
-            }
-            else {
+            } else {
                 binding.progressBar.visibility = View.VISIBLE
             }
         }
+    }
+    private fun parseTime(str : String): String {
+        val lastIndex = str.length - 5
+        return str.substring(lastIndex)
     }
 
     private fun setUpRecyclerView() {

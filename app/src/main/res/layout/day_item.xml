@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:padding="12dp"
-    app:cardCornerRadius="12dp"
     android:layout_marginStart="12dp"
     android:layout_marginEnd="12dp"
+    android:background="@color/white"
+    android:padding="12dp"
+    app:cardCornerRadius="25dp"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true">
 
@@ -22,60 +23,53 @@
             android:id="@+id/textViewDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor=" #808080"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCondition"
             tools:text="21.06.22" />
 
         <TextView
             android:id="@+id/textViewDegree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="12dp"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="#003333"
+            android:textSize="30sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewDate"
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="26" />
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="17dp"
-            android:layout_height="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="°C"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="#003333"
+            android:textSize="30sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/textViewDegree"
-            app:layout_constraintTop_toBottomOf="@+id/textViewDate" />
+            app:layout_constraintEnd_toStartOf="@id/imageViewCondition"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewCondition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="148dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="16dp"
             android:maxEms="8"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="#003333"
+            android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textViewDate"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="asfffffff" />
+            tools:text="Light snow" />
 
         <ImageView
-            android:id="@+id/imageViewConditions"
-            android:layout_width="87dp"
-            android:layout_height="77dp"
-            android:layout_marginEnd="28dp"
+            android:id="@+id/imageViewCondition"
+            android:layout_width="62dp"
+            android:layout_height="51dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewCondition"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/state" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
