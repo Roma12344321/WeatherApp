@@ -2,6 +2,7 @@ package com.dev.weatherapp.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,6 +71,7 @@ class HourListFragment : Fragment() {
         binding.recyclerViewHourList.adapter = adapter
         viewModel.hourTemperature.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+            Log.d("Main",it.toString())
         }
     }
 

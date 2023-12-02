@@ -6,7 +6,7 @@ data class WeatherResponse(
     @SerializedName("location")
     val location: Location?,
     @SerializedName("current")
-    val temperature: Temperature?,
+    val current: Current?,
     @SerializedName("forecast")
     val listOfDayResponse: ListOfDayResponse?
 )
