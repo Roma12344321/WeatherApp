@@ -10,5 +10,5 @@ class HourViewHolder(val view : View) : RecyclerView.ViewHolder(view) {
     val textViewHourDate = view.findViewById<TextView>(R.id.textViewHourDate)
     val textViewHourDegree = view.findViewById<TextView>(R.id.textViewHourDegree)
     val textViewHourCondition = view.findViewById<TextView>(R.id.textViewHourCondition)
-    val imageViewHourCondition = view.findViewById<ImageView>(R.id.imageViewHourConditions)
+    val imageViewHourCondition = view.findViewById<ImageView>(R.id.imageViewHourCondition)
 }

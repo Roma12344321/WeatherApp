@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="2dp"
+    android:layout_marginEnd="2dp"
     android:background="@color/white"
-    android:padding="12dp"
-    app:cardCornerRadius="12dp"
-    android:layout_marginStart="12dp"
-    android:layout_marginEnd="12dp"
+    android:padding="10dp"
+    app:cardCornerRadius="25dp"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true">
 
@@ -22,60 +23,58 @@
             android:id="@+id/textViewHourDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="12dp"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor=" #808080"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="00:00" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewHourCondition"
+            tools:text="21.06.22" />
 
         <TextView
             android:id="@+id/textViewHourDegree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="12dp"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="#003333"
+            android:textSize="26sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewHourDate"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="26" />
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="17dp"
-            android:layout_height="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="°C"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="#003333"
+            android:textSize="26sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/textViewHourDegree"
-            app:layout_constraintTop_toBottomOf="@+id/textViewHourDate" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imageViewHourCondition"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewHourCondition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="148dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="52dp"
             android:maxEms="8"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="#003333"
+            android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="asfffffff" />
+            tools:text="Light snow" />
 
         <ImageView
-            android:id="@+id/imageViewHourConditions"
-            android:layout_width="87dp"
-            android:layout_height="77dp"
-            android:layout_marginEnd="28dp"
+            android:id="@+id/imageViewHourCondition"
+            android:layout_width="62dp"
+            android:layout_height="51dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewHourCondition"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/state" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.cardview.widget.CardView>

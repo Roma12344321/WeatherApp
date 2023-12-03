@@ -61,6 +61,17 @@ class DayListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.loadTemperature(city)
         viewModel.loadCurrentWeather(city)
+        setupProgressBar()
+        setupCurrentWeather()
+        setUpRecyclerView()
+    }
+
+    private fun parseTime(str: String): String {
+        val lastIndex = str.length - 5
+        return str.substring(lastIndex)
+    }
+
+    private fun setupCurrentWeather() {
         viewModel.currentWeather.observe(viewLifecycleOwner) {
             binding.textViewDegree.text = it.temp.toString()
             binding.textViewTime.text = parseTime(it.time.toString())
@@ -69,18 +80,6 @@ class DayListFragment : Fragment() {
                 .load("https:" + it.iconCondition)
                 .into(binding.imageViewCurrentCondition)
         }
-        setUpRecyclerView()
-        viewModel.isLoaded.observe(viewLifecycleOwner) {
-            if (it) {
-                binding.progressBar.visibility = View.GONE
-            } else {
-                binding.progressBar.visibility = View.VISIBLE
-            }
-        }
-    }
-    private fun parseTime(str : String): String {
-        val lastIndex = str.length - 5
-        return str.substring(lastIndex)
     }
 
     private fun setUpRecyclerView() {
@@ -90,6 +89,16 @@ class DayListFragment : Fragment() {
             dayListAdapter.submitList(it)
         }
         setUpClickListener()
+    }
+
+    private fun setupProgressBar() {
+        viewModel.isLoaded.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.progressBar.visibility = View.GONE
+            } else {
+                binding.progressBar.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun setUpClickListener() {
