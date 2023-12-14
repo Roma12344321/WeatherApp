@@ -2,4 +2,6 @@
     <string name="app_name">WeatherApp</string>
     <string name="input_city">Введите город</string>
     <string name="know_weather">Узнать погоду</string>
+    <string name="failure">Ошибка</string>
+    <string name="Failure">Ошибка</string>
 </resources>

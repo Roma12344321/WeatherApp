@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.dev.weatherapp.R
 import com.dev.weatherapp.databinding.FragmentMainBinding
@@ -27,7 +28,12 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.weatherButton.setOnClickListener {
             val text = binding.editText.text.toString()
-            launchDayListFragment(text)
+            if (text.isNotEmpty()) {
+                launchDayListFragment(text)
+            }
+            else {
+                Toast.makeText(context,"Вы ничего не ввели",Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -36,7 +42,7 @@ class MainFragment : Fragment() {
         _binding = null
     }
 
-    private fun launchDayListFragment(city:String) {
+    private fun launchDayListFragment(city: String) {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, DayListFragment.newInstance(city))
             .addToBackStack(null)

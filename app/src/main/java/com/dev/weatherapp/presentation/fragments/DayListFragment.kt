@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -62,6 +63,7 @@ class DayListFragment : Fragment() {
         viewModel.loadTemperature(city)
         viewModel.loadCurrentWeather(city)
         setupProgressBar()
+        setUpErrorTextView()
         setupCurrentWeather()
         setUpRecyclerView()
     }
@@ -95,8 +97,19 @@ class DayListFragment : Fragment() {
         viewModel.isLoaded.observe(viewLifecycleOwner) {
             if (it) {
                 binding.progressBar.visibility = View.GONE
+                binding.cardViewCurrent.visibility = View.VISIBLE
             } else {
+                binding.cardViewCurrent.visibility = View.GONE
                 binding.progressBar.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun setUpErrorTextView() {
+        viewModel.showError.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.cardViewCurrent.visibility = View.GONE
+                Toast.makeText(context, getString(R.string.Failure),Toast.LENGTH_LONG).show()
             }
         }
     }

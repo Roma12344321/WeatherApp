@@ -41,6 +41,10 @@ class MainViewModel @Inject constructor(
     val isLoaded: LiveData<Boolean>
         get() = _isLoaded
 
+    private val _showError = MutableLiveData<Boolean>()
+    val showError : LiveData<Boolean>
+        get() = _showError
+
     fun loadTemperature(city: String) {
         _isLoaded.value = false
         scope.launch {
@@ -48,7 +52,7 @@ class MainViewModel @Inject constructor(
                 _dayTemperature.value = loadTemperatureForDayUseCase.loadTemperature(city)
                 _isLoaded.value = true
             } catch (_: Exception) {
-                _isLoaded.value = false
+                _showError.value = true
             }
         }
     }
@@ -56,15 +60,11 @@ class MainViewModel @Inject constructor(
     fun loadCurrentWeather(city: String) {
         _isLoaded.value = false
         scope.launch {
-            while (true) {
-                try {
-                    _currentWeather.value = loadCurrentWeatherUseCase.loadCurrentWeather(city)
-                    _isLoaded.value = true
-                } catch (_: Exception) {
-                    _isLoaded.value = false
-                }
-                Log.d("TAG", "Internet")
-                delay(30000)
+            try {
+                _currentWeather.value = loadCurrentWeatherUseCase.loadCurrentWeather(city)
+                _isLoaded.value = true
+            } catch (_: Exception) {
+                _showError.value = true
             }
         }
     }
