@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainer
+import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dev.weatherapp.R
@@ -23,6 +25,8 @@ class DayListFragment : Fragment() {
     private val component by lazy {
         (requireActivity().application as WeatherApp).component
     }
+
+    private var fragmentContainer : FragmentContainerView? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -60,10 +64,11 @@ class DayListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        fragmentContainer = view.findViewById(R.id.fragmentContainer)
         viewModel.loadTemperature(city)
         viewModel.loadCurrentWeather(city)
         setupProgressBar()
-        setUpErrorTextView()
+        setUpError()
         setupCurrentWeather()
         setUpRecyclerView()
     }
@@ -105,11 +110,11 @@ class DayListFragment : Fragment() {
         }
     }
 
-    private fun setUpErrorTextView() {
+    private fun setUpError() {
         viewModel.showError.observe(viewLifecycleOwner) {
             if (it) {
                 binding.cardViewCurrent.visibility = View.GONE
-                Toast.makeText(context, getString(R.string.Failure),Toast.LENGTH_LONG).show()
+                Toast.makeText(context, getString(R.string.Failure), Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -117,15 +122,29 @@ class DayListFragment : Fragment() {
     private fun setUpClickListener() {
         dayListAdapter.onItemClickListener = object : DayListAdapter.OnItemClickListener {
             override fun onItemClick(day: Day) {
-                launchHourListFragment(day)
+                if (isOnePadeMode()) {
+                    launchHourListFragment(day)
+                } else {
+                    launchHourListFragmentVertical(day)
+                }
             }
         }
+    }
+
+    private fun isOnePadeMode(): Boolean {
+        return fragmentContainer == null
     }
 
     private fun launchHourListFragment(day: Day) {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, HourListFragment.newInstance(day))
             .addToBackStack(null)
+            .commit()
+    }
+
+    private fun launchHourListFragmentVertical(day: Day) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, HourListFragment.newInstance(day))
             .commit()
     }
 
