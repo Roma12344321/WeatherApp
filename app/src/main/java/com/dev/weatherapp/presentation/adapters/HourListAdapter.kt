@@ -10,6 +10,7 @@ import com.dev.weatherapp.domain.Hour
 import java.lang.RuntimeException
 
 class HourListAdapter : ListAdapter<Hour, HourViewHolder>(HourItemDiffCallBack()) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HourViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.hour_item, parent, false)
         return HourViewHolder(view)

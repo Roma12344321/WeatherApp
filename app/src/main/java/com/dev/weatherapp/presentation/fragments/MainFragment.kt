@@ -28,12 +28,11 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.weatherButton.setOnClickListener {
-            val text = binding.editText.text.toString()
+            val text = binding.editText.text.toString().trim()
             if (text.isNotEmpty()) {
                 launchDayListFragment(text)
-            }
-            else {
-                Toast.makeText(context,"Вы ничего не ввели",Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Вы ничего не ввели", Toast.LENGTH_SHORT).show()
             }
         }
     }

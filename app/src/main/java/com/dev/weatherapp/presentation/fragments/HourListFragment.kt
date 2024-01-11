@@ -71,7 +71,6 @@ class HourListFragment : Fragment() {
         binding.recyclerViewHourList.adapter = adapter
         viewModel.hourTemperature.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-            Log.d("Main",it.toString())
         }
     }
 

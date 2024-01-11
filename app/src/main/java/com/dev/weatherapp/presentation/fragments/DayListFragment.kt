@@ -26,7 +26,7 @@ class DayListFragment : Fragment() {
         (requireActivity().application as WeatherApp).component
     }
 
-    private var fragmentContainer : FragmentContainerView? = null
+    private var fragmentContainer: FragmentContainerView? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -80,9 +80,11 @@ class DayListFragment : Fragment() {
 
     private fun setupCurrentWeather() {
         viewModel.currentWeather.observe(viewLifecycleOwner) {
-            binding.textViewDegree.text = it.temp.toString()
-            binding.textViewTime.text = parseTime(it.time.toString())
-            binding.textViewCurrentCondition.text = it.textCondition
+            with(binding) {
+                textViewDegree.text = it.temp.toString()
+                textViewTime.text = parseTime(it.time.toString())
+                textViewCurrentCondition.text = it.textCondition
+            }
             Glide.with(this)
                 .load("https:" + it.iconCondition)
                 .into(binding.imageViewCurrentCondition)
@@ -125,7 +127,7 @@ class DayListFragment : Fragment() {
                 if (isOnePadeMode()) {
                     launchHourListFragment(day)
                 } else {
-                    launchHourListFragmentVertical(day)
+                    launchHourListFragmentHorizontal(day, "day")
                 }
             }
         }
@@ -142,9 +144,11 @@ class DayListFragment : Fragment() {
             .commit()
     }
 
-    private fun launchHourListFragmentVertical(day: Day) {
+    // supportFragmentManager.popBackStack("day",1)
+    private fun launchHourListFragmentHorizontal(day: Day, name: String) {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, HourListFragment.newInstance(day))
+//            .addToBackStack(name)
             .commit()
     }
 
